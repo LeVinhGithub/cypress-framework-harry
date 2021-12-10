@@ -1,0 +1,36 @@
+name: Run e2e CI staging
+
+on:
+  workflow_dispatch:
+
+jobs:
+  rune2e:
+    name: Run e2e
+    runs-on: ubuntu-latest
+    container: cypress/browsers:node14.17.0-chrome91-ff89
+
+    strategy:
+      fail-fast: false
+      matrix:
+        node-version: [14.x]
+
+    steps:
+      - name: Checkout cypress repo
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: "0"
+      - name: Setup node version
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "npm"
+      - run: npm install
+      - run: npm run test
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v2.2.4
+        if: always()
+        with:
+          name: Allure-report
+          path: allure-results
+          if-no-files-found: error
+          retention-days: 1
