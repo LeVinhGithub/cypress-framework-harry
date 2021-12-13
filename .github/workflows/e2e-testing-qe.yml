@@ -25,12 +25,13 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: "npm"
       - run: npm install
-      - run: npm run test
+      - run: npm run test:headless
+      - run: npm run report
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v2.2.4
         if: always()
         with:
           name: Allure-report
-          path: allure-results
+          path: allure-report
           if-no-files-found: error
           retention-days: 1
