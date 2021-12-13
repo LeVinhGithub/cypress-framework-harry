@@ -7,7 +7,7 @@
     "cy:open": "cypress open",
     "report": "allure generate allure-results --clean -o allure-report",
     "clsrp": "rm -rf ./allure-results && rm -rf ./allure-report ",
-    "test:headless": "export E2E_LOCAL_CI=true && yarn clsrp && cypress run --env allure=true --browser chrome",
+    "test:headless": "export E2E_LOCAL_CI=false && yarn clsrp && cypress run --env allure=true --browser chrome",
     "test": "yarn clsrp && cypress run --env allure=true --browser chrome --headed",
     "test:debug": "yarn clsrp && cypress run --env allure=true --browser chrome --headed --no-exit",
     "test:localci:debug": "export E2E_LOCAL_CI=true && yarn clsrp && cypress run --env allure=true --browser chrome --headed --no-exit"
